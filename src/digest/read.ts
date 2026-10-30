@@ -47,6 +47,7 @@ export const readNight: ReadNight = (runsDir, night) => {
 
   const byJob = new Map<string, DigestRow>();
   let badLines = 0;
+  const counts = { ok: 0, retry: 0, fail: 0 };
 
   for (const raw of log.split('\n')) {
     if (raw.trim() === '') continue;
@@ -56,6 +57,7 @@ export const readNight: ReadNight = (runsDir, night) => {
       continue;
     }
 
+    counts[line.status] += 1;
     const row = byJob.get(line.job);
     byJob.set(line.job, {
       job: line.job,
@@ -70,5 +72,5 @@ export const readNight: ReadNight = (runsDir, night) => {
   }
 
   const rows = [...byJob.values()].sort((a, b) => (a.job < b.job ? -1 : a.job > b.job ? 1 : 0));
-  return { rows, badLines };
+  return { rows, badLines, counts };
 };
