@@ -78,7 +78,7 @@ describe('readNight on a temp dir', () => {
 
   it('gives no rows for an empty file', () => {
     write([]);
-    expect(readNight(dir, 'n')).toEqual({ rows: [], badLines: 0 });
+    expect(readNight(dir, 'n')).toEqual({ rows: [], badLines: 0, counts: { ok: 0, retry: 0, fail: 0 } });
   });
 
   it('surfaces fs errors other than ENOENT', () => {

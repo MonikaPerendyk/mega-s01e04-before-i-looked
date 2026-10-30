@@ -15,6 +15,8 @@ export type DigestRow = {
 export type Night = {
   rows: DigestRow[];
   badLines: number;
+  // Log lines per status across the night; bad lines are not counted.
+  counts: { ok: number; retry: number; fail: number };
 };
 
 // Rows sorted by job. null when the night has no file; an empty file gives no rows.
